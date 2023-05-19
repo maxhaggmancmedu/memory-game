@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import styles from './styles/MemoryBoard.module.css'
-import Controlls from './controlls'
+import Controlls from './Controlls'
 import { useEffect, useState } from 'react'
 
 const MemoryBoard = () => {
@@ -21,17 +21,25 @@ const MemoryBoard = () => {
         val = {...val, id: uuid}
     ))
 
-    console.log(allNumbersOnBoardWithId)
-
     const [board, setBoard] = useState(allNumbersOnBoardWithId)
 
-    
-
     useEffect(() => {
-        console.log('changed')
-    }, [allNumbersOnBoardWithId]) 
+        shuffleArray()
+    }, [])
 
+    const shuffleArray = () => {
+        const shuffledBoard = [...board]
+        for (let i = shuffledBoard.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = shuffledBoard[i];
+          shuffledBoard[i] = shuffledBoard[j];
+          shuffledBoard[j] = temp;
+        }
+        console.log(board)
+        setBoard(shuffledBoard)
+      }
 
+    
     return (
         <>
             <div className={styles.board}>
@@ -41,7 +49,7 @@ const MemoryBoard = () => {
                 )
             })}
             </div>
-            <Controlls allNumbersOnBoardWithId={allNumbersOnBoardWithId} />
+            <Controlls allNumbersOnBoardWithId={allNumbersOnBoardWithId} shuffleArray={shuffleArray}/>
         </>
         
     )
