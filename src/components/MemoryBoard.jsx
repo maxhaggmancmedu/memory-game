@@ -1,4 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'
+import styles from './styles/MemoryBoard.module.css'
+import Controlls from './controlls'
+import { useEffect, useState } from 'react'
 
 const MemoryBoard = () => {
 
@@ -10,7 +13,7 @@ const MemoryBoard = () => {
 
     const numbersOnBoardCopy = numbersOnBoard.map(x => x)
     const allNumbersOnBoard = numbersOnBoard.concat(numbersOnBoardCopy)
-    console.log(allNumbersOnBoard)
+    
     let uuid;
     
     const allNumbersOnBoardWithId = allNumbersOnBoard.map(val => (
@@ -20,15 +23,27 @@ const MemoryBoard = () => {
 
     console.log(allNumbersOnBoardWithId)
 
+    const [board, setBoard] = useState(allNumbersOnBoardWithId)
+
+    
+
+    useEffect(() => {
+        console.log('changed')
+    }, [allNumbersOnBoardWithId]) 
+
+
     return (
-        <div>
-            {allNumbersOnBoardWithId.map((number) => {
+        <>
+            <div className={styles.board}>
+            {board.map((number) => {
                 return (
-                    <div key={number.id}></div>
+                    <div key={number.id}>{number.value}</div>
                 )
-                
             })}
-        </div>
+            </div>
+            <Controlls allNumbersOnBoardWithId={allNumbersOnBoardWithId} />
+        </>
+        
     )
 }
 
