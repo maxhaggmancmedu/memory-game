@@ -1,6 +1,6 @@
 .gameFinishedComponent {
     align-items: center;
-    background-color: red;
+    background-color: var(--tiffany-blue);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
