@@ -5,7 +5,36 @@
 }
 
 .board > * {
+    align-items: center;
     background-color: var(--light-green);
+    display: flex;
+    justify-content: center;
+    font-size: 3rem;
     width: 100px;
     height: 100px;
+}
+
+.card {
+    color: var(--light-green);
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+.flipped {
+    color: var(--black);
+    transform: rotateY(0);
+    transition: 1s ease-in-out;
+    transform-style: preserve-3d;
+}
+
+.matchedO {
+    color: red;
+    transform: rotateY(0);
+    transition-duration: 1s;
+}
+
+.matchedX {
+    color: blue;
+    transform: rotateY(0);
+    transition-duration: 1s;
 }
