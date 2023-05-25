@@ -1,48 +1,47 @@
 .board {
     display: grid;
-    grid-template-columns: repeat(6, 1fr); /* Create 6 equal-width columns */
-    grid-template-rows: repeat(6, 1fr);
     gap: 8px;
-    width: max-content;
-    position: relative;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     left: 50%;
+    position: relative;
     transform: translate(-50%);
+    width: max-content;
 }
 
 .board > * {
     align-items: center;
     background-color: var(--tiffany-blue);
     display: flex;
-    justify-content: center;
     font-size: 4rem;
-    width: 100px;
     height: 100px;
+    justify-content: center;
+    width: 100px;
 }
 
 .card {
+    border-radius: 10px;
     color: var(--violet);
     cursor: pointer;
-    border-radius: 10px;
-    position: relative;
     perspective: 500px;
-    transition: transform .7s;
+    position: relative;
     transform-style: preserve-3d;
     transform: rotateY(180deg);
+    transition: transform .7s;
 }
 
 .flipped {
     color: var(--violet);
     transform: rotateY(0deg);
-    
 }
 
 .cardFront, 
 .cardBack {
-    height: inherit;
-    width: inherit;
-    position: absolute;
     backface-visibility: hidden;
     border-radius: 10px;
+    height: inherit;
+    position: absolute;
+    width: inherit;
 }
 
 .cardFront {
@@ -50,23 +49,25 @@
 }
 
 .cardBack {
-    background-color: var(--light-pink);
-    position: absolute;
+    align-items: center;
     backface-visibility: hidden;
+    background-color: var(--light-pink);
     color: var(--light-green);
     display: flex;
     justify-content: center;
-    align-items: center;
+    position: absolute;
+}
+
+.matchedO, 
+.matchedX {
+    transform: rotateY(0);
+    transition-duration: 1s;
 }
 
 .matchedO {
     color: red;
-    transform: rotateY(0);
-    transition-duration: 1s;
 }
 
 .matchedX {
     color: blue;
-    transform: rotateY(0);
-    transition-duration: 1s;
 }

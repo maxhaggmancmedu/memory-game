@@ -1,20 +1,20 @@
 .scoreBoard {
-    justify-content: space-evenly;
     display: flex;
     font-size: 2rem;
+    justify-content: space-evenly;
 }
 
 .playerTurn {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .scoreContainer {
+    align-items: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
 }
 
 .scores {
@@ -37,8 +37,8 @@
 
 .xTurn,
 .oTurn {
-    font-weight: 600;
     font-size: 3rem;
+    font-weight: 600;
 }
 
 .xTurn {
