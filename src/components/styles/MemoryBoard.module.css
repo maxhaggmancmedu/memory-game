@@ -1,30 +1,62 @@
 .board {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* Create 6 equal-width columns */
+    grid-template-rows: repeat(6, 1fr);
     gap: 8px;
+    width: max-content;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
 }
 
 .board > * {
     align-items: center;
-    background-color: var(--light-green);
+    background-color: var(--tiffany-blue);
     display: flex;
     justify-content: center;
-    font-size: 3rem;
+    font-size: 4rem;
     width: 100px;
     height: 100px;
 }
 
 .card {
-    color: var(--light-green);
+    color: var(--violet);
     cursor: pointer;
+    border-radius: 10px;
+    position: relative;
+    perspective: 500px;
+    transition: transform .7s;
+    transform-style: preserve-3d;
     transform: rotateY(180deg);
 }
 
 .flipped {
-    color: var(--black);
-    transform: rotateY(0);
-    transition: 1s ease-in-out;
-    transform-style: preserve-3d;
+    color: var(--violet);
+    transform: rotateY(0deg);
+    
+}
+
+.cardFront, 
+.cardBack {
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 10px;
+}
+
+.cardFront {
+    background-color: blue;
+}
+
+.cardBack {
+    background-color: var(--light-pink);
+    position: absolute;
+    backface-visibility: hidden;
+    color: var(--light-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .matchedO {

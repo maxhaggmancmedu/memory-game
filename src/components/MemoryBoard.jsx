@@ -16,6 +16,8 @@ const MemoryBoard = () => {
     const [playerTurn, setPlayerTurn] = useState('X')
     const [playerXScore, setPlayerXScore] = useState(0)
     const [playerOScore, setPlayerOScore] = useState(0)
+    const [playerXCorrectGuesses, setplayerXCorrectGuesses] = useState([])
+    const [playerOCorrectGuesses, setplayerOCorrectGuesses] = useState([])
     
 
     for (let i = 1; i < 19; i++) {
@@ -54,6 +56,8 @@ const MemoryBoard = () => {
         setPlayerXScore(0)
         setPlayerOScore(0)
         setMatchedCards([])
+
+        console.log(shuffledBoard)
     }
 
     
@@ -61,7 +65,10 @@ const MemoryBoard = () => {
 
     const handleClickedCell = (value, id) => {
       
-      
+      if (flippedCells.includes(id)) {
+        return
+      }
+
       setClickedCells([...clickedCells, { value, id }]);
       setFlippedCells([...flippedCells, id]);
       
@@ -95,11 +102,15 @@ const MemoryBoard = () => {
           setAllOpenedCards([...allOpenedCards, clickedCells[0].value, clickedCells[1].value])
           if (playerTurn === 'X') {
             setPlayerXScore(prev => prev + 1)
+            setplayerXCorrectGuesses([...playerXCorrectGuesses, clickedCells[0].id, clickedCells[1].id])
           }
 
           if (playerTurn === 'O') {
             setPlayerOScore(prev => prev + 1)
+            setplayerOCorrectGuesses([...playerOCorrectGuesses, clickedCells[0].id, clickedCells[1].id])
           }
+          console.log(` player O: ${playerOCorrectGuesses}`)
+          console.log(` player X: ${playerXCorrectGuesses}`)
         } 
       }
 
@@ -111,30 +122,37 @@ const MemoryBoard = () => {
       
     }, [clickedCells]);
   
-  // console.log(board)
+  
   
   return (
+    
     <>
+      <Scoreboard playerTurn={playerTurn} playerOScore={playerOScore} playerXScore={playerXScore} />
       <div className={styles.board}>
         {board.map((cell) => {
           const isFlipped = flippedCells.includes(cell.id);
           const isMatched = matchedCards.includes(cell.id);
+          const isCorrectX = playerXCorrectGuesses.includes(cell.id);
+          const isCorrectO = playerOCorrectGuesses.includes(cell.id);
+          
           return (
             <div
               className={
                 `${styles.card} ${isFlipped ? styles.flipped : ""} 
-                ${isMatched && playerTurn === 'X' ? styles.matchedX : ""} 
-                ${isMatched && playerTurn === 'O' ? styles.matchedO : ""}`}
+                ${isMatched && isCorrectX ? styles.matchedX : ""} 
+                ${isMatched && isCorrectO ? styles.matchedO : ""}`}
               onClick={() => handleClickedCell(cell.value, cell.id)}
               key={cell.id}
             >
-              {cell.value}
+              
+              <div className={styles.cardFront}></div>
+              <div className={styles.cardBack}>{cell.value}</div>
             </div>
           );
         })}
       </div>
       <Controlls allNumbersOnBoardWithId={allNumbersOnBoardWithId} shuffleArray={shuffleArray} />
-      <Scoreboard playerTurn={playerTurn} playerOScore={playerOScore} playerXScore={playerXScore} />
+      
       <GameFinished gameIsActive={gameIsActive} />
     </>
   );

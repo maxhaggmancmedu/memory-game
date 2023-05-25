@@ -1,0 +1,28 @@
+.scoreBoard {
+    justify-content: space-evenly;
+    display: flex;
+    font-size: 2rem;
+}
+
+.playerTurn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scores {
+    display: flex;
+    flex-direction: row;
+}
+
+.playerXScore {
+    color: blue;
+}
+
+.hyphen {
+    padding: 0 4px;
+}
+
+.playerOScore {
+    color: red;
+}

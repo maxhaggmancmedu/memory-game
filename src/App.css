@@ -8,6 +8,12 @@ html {
   	height: 100vh;
 }
 
+body {
+	background-color: rgb(192, 162, 106);
+	color: var(--white);
+	height: 100%;
+}
+
 .App {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
