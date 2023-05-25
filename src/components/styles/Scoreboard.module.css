@@ -10,9 +10,17 @@
     align-items: center;
 }
 
+.scoreContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .scores {
     display: flex;
     flex-direction: row;
+    font-size: 3rem;
 }
 
 .playerXScore {
@@ -26,3 +34,18 @@
 .playerOScore {
     color: red;
 }
+
+.xTurn,
+.oTurn {
+    font-weight: 600;
+    font-size: 3rem;
+}
+
+.xTurn {
+    color: blue;
+}
+
+.oTurn {
+    color: red;
+}
+

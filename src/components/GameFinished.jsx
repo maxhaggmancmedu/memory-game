@@ -1,9 +1,30 @@
-const GameFinished = ({ gameIsActive } ) => {
+import styles from './styles/GameFinished.module.css'
+
+const GameFinished = ({ gameIsActive, gameWinner, playerOScore, playerXScore, shuffleArray } ) => {
+
+    
+
+    
+           
+    
+
+    
     return (
         
-        <div>
-            {!gameIsActive && <div>game is finished</div>}
-        </div>
+        
+        <>
+            {!gameIsActive && <div className={styles.gameFinishedComponent}>
+                <h3>PLAYER {gameWinner} WINS!!!</h3>
+                <div>
+                    <p>FINAL SCORE</p>
+                    <p>{playerXScore} - {playerOScore}</p>
+                </div>
+                <button className={styles.button} onClick={shuffleArray}>RESTART GAME</button>
+            </div>}
+        </>
+            
+            
+        
     )
 }
 

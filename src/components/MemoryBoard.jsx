@@ -18,6 +18,7 @@ const MemoryBoard = () => {
     const [playerOScore, setPlayerOScore] = useState(0)
     const [playerXCorrectGuesses, setplayerXCorrectGuesses] = useState([])
     const [playerOCorrectGuesses, setplayerOCorrectGuesses] = useState([])
+    const [gameWinner, setGameWinner] = useState('')
     
 
     for (let i = 1; i < 19; i++) {
@@ -51,55 +52,34 @@ const MemoryBoard = () => {
         }
         
         setBoard(shuffledBoard)
-        
         setFlippedCells([])
         setPlayerXScore(0)
         setPlayerOScore(0)
         setMatchedCards([])
-
-        console.log(shuffledBoard)
+        setAllOpenedCards([])
+        setplayerOCorrectGuesses([])
+        setplayerXCorrectGuesses([])
+        setGameIsActive(true)
     }
-
-    
-    
 
     const handleClickedCell = (value, id) => {
       
-      if (flippedCells.includes(id)) {
+      if (flippedCells.includes(id) || clickedCells.length === 2) {
         return
       }
 
       setClickedCells([...clickedCells, { value, id }]);
       setFlippedCells([...flippedCells, id]);
-      
-      console.log(allOpenedCards)
     };
 
     useEffect(() => {
-      
-      
-      
-      
 
-      if (clickedCells.length === 3) {
-        
-        setPlayerTurn(playerTurn === 'X' ? 'O' : 'X')
-
-        if (clickedCells[0].value === clickedCells[1].value) {
-          setPlayerTurn(playerTurn === 'X' ? 'X' : 'O')
-        }
-
-        
-        setClickedCells(clickedCells.slice(-1));
-        setFlippedCells([clickedCells.slice(-1)[0].id]);
-      }
-      
       if (clickedCells.length === 2) {
-        
         if (clickedCells[0].value === clickedCells[1].value) {
           
           setMatchedCards([...matchedCards, clickedCells[0].id, clickedCells[1].id]);
           setAllOpenedCards([...allOpenedCards, clickedCells[0].value, clickedCells[1].value])
+          
           if (playerTurn === 'X') {
             setPlayerXScore(prev => prev + 1)
             setplayerXCorrectGuesses([...playerXCorrectGuesses, clickedCells[0].id, clickedCells[1].id])
@@ -109,21 +89,33 @@ const MemoryBoard = () => {
             setPlayerOScore(prev => prev + 1)
             setplayerOCorrectGuesses([...playerOCorrectGuesses, clickedCells[0].id, clickedCells[1].id])
           }
-          console.log(` player O: ${playerOCorrectGuesses}`)
-          console.log(` player X: ${playerXCorrectGuesses}`)
+          setPlayerTurn(playerTurn === 'X' ? 'X' : 'O')
         } 
+
+        setTimeout(() => {
+          setClickedCells([])
+          setFlippedCells([])
+
+        }, 1000)
+
+        setTimeout(() => {
+          if (clickedCells[0].value !== clickedCells[1].value) {
+            setPlayerTurn(playerTurn === 'X' ? 'O' : 'X')
+          }
+        }, 1500)
       }
 
       if (allOpenedCards.length === 36) {
         setGameIsActive(false)
+        if (playerOScore > playerXScore) {
+          setGameWinner('O')
+        } else {
+          setGameWinner('X')
+        }
       }
-      
-      
-      
+
     }, [clickedCells]);
-  
-  
-  
+    console.log(flippedCells)
   return (
     
     <>
@@ -151,9 +143,7 @@ const MemoryBoard = () => {
           );
         })}
       </div>
-      <Controlls allNumbersOnBoardWithId={allNumbersOnBoardWithId} shuffleArray={shuffleArray} />
-      
-      <GameFinished gameIsActive={gameIsActive} />
+      <GameFinished gameIsActive={gameIsActive} gameWinner={gameWinner} playerOScore={playerOScore} playerXScore={playerXScore} shuffleArray={shuffleArray}/>
     </>
   );
 };

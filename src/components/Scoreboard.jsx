@@ -5,16 +5,15 @@ const Scoreboard = ({ playerTurn, playerOScore, playerXScore } ) => {
         <div className={styles.scoreBoard}>
             <div className={styles.playerTurn}>
                 <h3 >CURRENT PLAYER TURN </h3>
-                <p>{playerTurn}</p>
+                <p className={`${playerTurn ==='X' ? styles.xTurn : styles.oTurn}` }>{playerTurn}</p>
             </div>
-            <div >
+            <div className={styles.scoreContainer} >
                 <h3 className={styles.h3}>SCORE</h3>
-                <p className={styles.scores}>
+                <div className={styles.scores}>
                     <p className={styles.playerXScore}>X {playerXScore}</p>
                     <p className={styles.hyphen}> - </p>
                     <p className={styles.playerOScore}>{playerOScore} O </p>
-                </p>
-                
+                </div>
             </div>
         </div>
     )
